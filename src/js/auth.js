@@ -13,6 +13,7 @@ addBtn.addEventListener("click", async (event)=>{
     try {
         const response = await fetch(url + "login", {
             method: 'POST',
+            credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
             },
