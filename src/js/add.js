@@ -55,6 +55,8 @@ async function postData(companyname, jobtitle, location, startdate, enddate){
         const data = await response.json();
         if(response.status == 401){
             throw new Error(data.message);
+        }else if(response.status == 403){
+            throw new Error;
         }
 
     } catch (err) {
