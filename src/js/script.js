@@ -149,6 +149,8 @@ async function putData(expEdit, id){
         const data = await response.json();
         if(response.status == 401){
             throw new Error(data.message);
+        }else if(response.status == 403){
+            throw new Error(data.message);
         }
         
     } catch (err) {
