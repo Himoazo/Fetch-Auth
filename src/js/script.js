@@ -127,10 +127,12 @@ function editEntry(id){
 async function putData(expEdit, id){
     let error;
     try {
+        const token = sessionStorage.getItem('token');
         const response = await fetch(`https://auth-production-afa2.up.railway.app/api/workexperiences/${id}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` 
             },
             body: JSON.stringify(expEdit),
             credentials: "include"
