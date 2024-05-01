@@ -150,7 +150,7 @@ async function putData(expEdit, id){
         if(response.status == 401){
             throw new Error(data.message);
         }else if(response.status == 403){
-            throw new Error(data.message);
+            throw new Error("Du måste vara inloggad för att kunna redigera");
         }
         
     } catch (err) {
