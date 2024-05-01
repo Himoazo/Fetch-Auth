@@ -8,6 +8,7 @@ async function fetchData() {
     try {
         const response = await fetch(url);
         const data = await response.json();
+        console.log(data);
         //Loop genom inhämtad data och skapa tr för varje entry med tillhörande tds
         for(let entry of data){
             let id = entry._id;
