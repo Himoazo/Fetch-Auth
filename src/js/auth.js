@@ -19,7 +19,9 @@ login.addEventListener("click", async (event)=>{
             },
             body: JSON.stringify({username, password})
         });
-        
+
+        const data = await response.json();
+        sessionStorage.setItem("token", data)
         //If server side error
         if(response.status == 400){
             throw new Error("Invalid username/password");
