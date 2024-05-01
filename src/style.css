@@ -169,7 +169,7 @@ tbody tr:hover {
     background-color: #3a0d0d;
 }
 
-.editBtn, #add, #signup{
+.editBtn, #add, #signup, #login{
     width: 100%;
     padding: 0.5rem;
     background-color: #0074D9;

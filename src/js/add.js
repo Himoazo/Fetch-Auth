@@ -47,13 +47,18 @@ async function postData(companyname, jobtitle, location, startdate, enddate){
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: "include",
             body: JSON.stringify(exp)
         });
-        
+        const data = await response.json();
+        if(response.status == 401){
+            throw new Error(data.message);
+        }
+
     } catch (err) {
         error = err;
         console.error('Fetch error:', error);
-        document.getElementById("postErr").textContent = "Det gick inte att lägga till pga: " + error.message;
+        document.getElementById("postErr").textContent = "Du måste logga in först för att kunna lägga till en arbetserfarenhet ";
     }finally{
         if(!error){
             document.getElementById("printed").textContent = "En arbetserfarenhet har laggts till och kan synas på startsidan"

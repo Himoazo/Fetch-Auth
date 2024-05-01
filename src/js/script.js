@@ -76,13 +76,21 @@ async function deleteEntry(id){
     const confirm = window.confirm("Är du säker att du vill ta bort denna arbetserfarenhet?");
 
     if(confirm){
+        let error;
         try {
-                const response = await fetch(`https://auth-production-afa2.up.railway.app/api/workexperiences/${id}`, {method: 'DELETE'});
+                const response = await fetch(`https://auth-production-afa2.up.railway.app/api/workexperiences/${id}`, {method: 'DELETE', credentials: "include"});
                 
-            } catch (error) {
-                console.error('Fetch error:', error);
+                const data = await response.json();
+                if(response.status == 401){
+                throw new Error(data.message);
+        }
+            } catch (err) {
+                error = err;
+                document.getElementById("editError").textContent = error;
             } finally{
-                window.location.reload();
+                if(!error){
+                    window.location.reload();
+                }
             }
     }else{
         console.log("avbruten borttagning");
@@ -92,6 +100,9 @@ async function deleteEntry(id){
 function editEntry(id){
     let tdATA = document.getElementsByClassName(id);
 
+    if(tdATA[4].textContent == "Pågående"){
+
+    }
     let expEdit = {
         companyname: tdATA[0].textContent,
         jobtitle: tdATA[1].textContent,
@@ -121,12 +132,16 @@ async function putData(expEdit, id){
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(expEdit)
+            body: JSON.stringify(expEdit),
+            credentials: "include"
         });
+        const data = await response.json();
+        if(response.status == 401){
+            throw new Error(data.message);
+        }
         
-    } catch (error) {
+    } catch (err) {
         error = err;
-        console.error('Fetch error:', error);
         document.getElementById("editError").textContent = "Det gick inte att redigera pga: " + error;
     }finally{
         if(!error){

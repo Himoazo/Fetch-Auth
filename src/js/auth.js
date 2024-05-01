@@ -1,9 +1,9 @@
 "use strict"
 
 const url = "https://auth-production-afa2.up.railway.app/api/" 
-const addBtn = document.getElementById("add");
+const login = document.getElementById("login");
 //Event listener för logga in knappen
-addBtn.addEventListener("click", async (event)=>{
+login.addEventListener("click", async (event)=>{
     event.preventDefault();
 
     const username = document.getElementById("username").value;
@@ -20,21 +20,22 @@ addBtn.addEventListener("click", async (event)=>{
             body: JSON.stringify({username, password})
         });
         
-        //If error
+        //If server side error
         if(response.status == 400){
             throw new Error("Invalid username/password");
         }else if(response.status == 401){
             throw new Error("Incorrect username/password");
         }
-        const data = await response.json();
-        /* const token = data.response.token;  */
-        console.log(data);
+        
+        
     } catch (err) {
         error = err;
         document.getElementById("printed").textContent = "Det gick inte att logga in pga: " + error.message;
     }finally{
         if(!error){
             document.getElementById("printed").textContent = "Nu är du inloggad";
+            document.getElementById("username").value = "";
+            document.getElementById("password").value = "";
         }
     }
 });
@@ -64,7 +65,7 @@ signup.addEventListener("click", async (event)=>{
             body: JSON.stringify(account)
         });
        
-        //If error
+        //If server error
         if(response.status == 400){
             throw new Error("Invalid Invalid input");
         }else if(response.status == 500){
@@ -77,6 +78,9 @@ signup.addEventListener("click", async (event)=>{
     }finally{
         if(!error){
             document.getElementById("printed").textContent = "Ditt konto har skapats";
+            document.getElementById("newUsername").value = "";
+            document.getElementById("newPassword").value = "";
+            document.getElementById("email").value = ""; 
         }
     }
     });
