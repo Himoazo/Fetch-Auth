@@ -77,12 +77,21 @@ async function deleteEntry(id){
 
     if(confirm){
         let error;
-        try {
-                const response = await fetch(`https://auth-production-afa2.up.railway.app/api/workexperiences/${id}`, {method: 'DELETE', credentials: "include"});
-                
-                const data = await response.json();
-                if(response.status == 401){
-                throw new Error(data.message);
+        try {   
+            const token = sessionStorage.getItem('token');
+            const response = await fetch(`https://auth-production-afa2.up.railway.app/api/workexperiences/${id}`, 
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` 
+                }, 
+                credentials: "include"
+            });
+            
+            const data = await response.json();
+            if(response.status == 401){
+            throw new Error(data.message);
         }
             } catch (err) {
                 error = err;
@@ -128,7 +137,6 @@ async function putData(expEdit, id){
     let error;
     try {
         const token = sessionStorage.getItem('token');
-        console.log(token);
         const response = await fetch(`https://auth-production-afa2.up.railway.app/api/workexperiences/${id}`, {
             method: 'PUT',
             headers: {
