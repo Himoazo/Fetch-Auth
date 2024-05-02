@@ -6,9 +6,21 @@ fetchData();
 async function fetchData() {
     const tbody = document.getElementById("data");
     try {
-        const response = await fetch(url);
+        const token = sessionStorage.getItem('token');
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` 
+            },
+            credentials: "include"
+        });
         const data = await response.json();
-        console.log(data);
+        if(response.status == 403 || response.status == 401){
+            
+            throw new Error("Du måste logga in för att se sidans innehåll");
+        }
+        document.querySelector('table').style.display = 'table';
         //Loop genom inhämtad data och skapa tr för varje entry med tillhörande tds
         for(let entry of data){
             let id = entry._id;
@@ -68,7 +80,7 @@ async function fetchData() {
         }
         
     } catch (error) {
-        console.error('Fetch error:', error);
+        document.getElementById("editError").textContent = error;
     }
 } 
 

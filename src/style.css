@@ -127,6 +127,7 @@ nav li:hover {
 
 /* Table */
 table{
+    display: none;
     font-size: large;
     width: 80%;
     margin: 2vh auto;
