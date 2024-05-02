@@ -1,7 +1,7 @@
 # Registrera Arbetserfarenheter
 Denna webbplats konsumerar REST webbtjänsten som finns i detta [repo](https://github.com/Himoazo/Auth).
 
-## Webbplatsen kräver inlogging för genomförandet av CRUD operations, med undantag för sign up POST request
+#### Webbplatsen kräver inlogging för genomförandet av CRUD operations, med undantag för sign up POST request
 
 Webbplatsen via **Fetch anrop** med olika **metoder** kan lagra data i webbtjänsten **(method: POST)**, kan radera en rad data **(method: DELETE)**, kan uppdatera en rad data **(method: PUT)** och läser all lagrade data i webbtjänstensdatabas och visar den på startsidan **(method: GET)**.
 
